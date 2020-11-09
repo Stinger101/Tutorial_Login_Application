@@ -65,10 +65,14 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.GONE);
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
+                    usernameEditText.setText("");
+                    passwordEditText.setText("");
+                    return;
                 }
                 if (loginResult.getSuccess() != null) {
 //                    updateUiWithUser(loginResult.getSuccess());
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    intent.putExtra("current_user",loginResult.getSuccess().getDisplayName());
                     startActivity(intent);
                 }
                 setResult(Activity.RESULT_OK);
@@ -87,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // ignore
+
             }
 
             @Override
